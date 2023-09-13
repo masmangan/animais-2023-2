@@ -1,32 +1,31 @@
 package org.example;
 
-
 interface Falante {
-    public String falar();
+    String falar();
 }
 
-class Gato extends java.lang.Object implements Falante{
+abstract class Animal implements Falante {
+    protected String nome;
 
-    private String nome;
-
-    public Gato(String nome) {
-        super();
+    public Animal(String nome) {
         this.nome = nome;
+    }
+}
+
+class Gato extends Animal {
+    public Gato(String nome) {
+        super(nome);
     }
 
     public String falar() {
         return nome + " diz miau!";
     }
-
 }
 
-class Cachorro extends java.lang.Object implements Falante {
-
-    private String nome;
+class Cachorro extends Animal {
 
     public Cachorro(String nome) {
-        super();
-        this.nome = nome;
+        super(nome);
     }
 
     public String falar() {
@@ -34,33 +33,37 @@ class Cachorro extends java.lang.Object implements Falante {
     }
 }
 
-class Papagaio implements Falante {
+class Papagaio extends Animal {
+    public Papagaio(String nome) {
+        super(nome);
+    }
 
-
-        @Override
+    @Override
     public String falar() {
-        return "Olá";
+        return nome + " diz crack!";
     }
 }
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("Animais!");
-        Falante bichos[] = {
+        Falante[] bichos = {
                 new Gato("Felix"),
                 new Gato("Garfield"),
                 new Gato("Mingau"),
                 new Cachorro("Pluto"),
                 new Cachorro("Xuxucão"),
                 new Cachorro("Monicão"),
-                new Cachorro("Bidu")
+                new Cachorro("Bidu"),
+                new Papagaio("Zé Carioca")
         };
 
-        for (int i = 0; i < bichos.length; i++) {
-            System.out.println(bichos[i].falar());
+        for (Falante bicho : bichos) {
+            System.out.println(bicho.falar());
         }
 
         System.out.println(bichos[0] instanceof Gato);
+        System.out.println(bichos[0] instanceof Animal);
         System.out.println(bichos[0] instanceof Cachorro);
         System.out.println(bichos[0] instanceof Falante);
         System.out.println(bichos[0] instanceof Object);
