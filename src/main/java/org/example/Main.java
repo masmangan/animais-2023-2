@@ -1,15 +1,40 @@
 package org.example;
 
+import java.util.Arrays;
+import java.util.Iterator;
+
+
 interface Falante {
     String falar();
 }
 
-abstract class Animal implements Falante {
+abstract class Animal implements Falante, java.lang.Comparable<Animal> {
     protected String nome;
 
     public Animal(String nome) {
         this.nome = nome;
     }
+
+    @Override
+    public int compareTo(Animal animal) {
+        if (this.nome == null) {
+            return "".compareTo(animal.nome);
+        } else {
+            return this.nome.compareTo(animal.nome);
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (this == obj)
+            return true;
+        if (!(obj instanceof Animal))
+            return false;
+        return this.compareTo((Animal)obj) == 0;
+    }
+
 }
 
 class Gato extends Animal {
@@ -20,6 +45,7 @@ class Gato extends Animal {
     public String falar() {
         return nome + " diz miau!";
     }
+
 }
 
 class Cachorro extends Animal {
@@ -44,6 +70,16 @@ class Papagaio extends Animal {
     }
 }
 
+class Veterinaria implements Iterable<Animal> {
+//class Veterinaria {
+        private Animal[] animais;
+
+    @Override
+    public Iterator<Animal> iterator() {
+        return Arrays.stream(animais).iterator();
+    }
+}
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("Animais!");
@@ -57,6 +93,19 @@ public class Main {
                 new Cachorro("Bidu"),
                 new Papagaio("Zé Carioca")
         };
+
+        int[] numeros = {20, 10, 5, 4};
+        System.out.println(Arrays.toString(numeros));
+        Arrays.sort(numeros);
+        System.out.println(Arrays.toString(numeros));
+
+        Arrays.sort(bichos);
+
+        Veterinaria vet = new Veterinaria();
+        for (Animal a : vet) {
+            System.out.println(a);
+        }
+
 
         for (Falante bicho : bichos) {
             System.out.println(bicho.falar());
