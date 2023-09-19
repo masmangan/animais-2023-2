@@ -72,7 +72,7 @@ class Papagaio extends Animal {
 
 class Veterinaria implements Iterable<Animal> {
 //class Veterinaria {
-        private Animal[] animais;
+        private Animal[] animais = {new Gato("Mimi"), new Cachorro("Lulu")};
 
     @Override
     public Iterator<Animal> iterator() {
